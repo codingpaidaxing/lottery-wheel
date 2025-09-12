@@ -247,7 +247,6 @@
         }
 
         .btn-secondary {
-            display: none;
             background: linear-gradient(45deg, #333, #555);
             color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
@@ -1472,7 +1471,69 @@
     // New Balance 主题抽奖系统核心类
     class NBLotterySystem {
         constructor() {
-             // 定义编号范围配置
+
+            // 1. 首先初始化基础属性
+            this.initializeBasicProperties();
+            // 2. 定义配置
+            this.initializeNumberConfig();
+            // 3. 加载配置和初始化系统
+            this.loadConfigFromStorage();
+            //this.initializeSystem();
+
+            // 4. 绑定事件和初始化UI
+            this.bindEvents();
+            this.createParticles();
+            this.initializeAudio();
+            this.updateNumberRangeDisplay();
+            // 页面加载时显示配置弹窗
+            this.showInitialConfig();
+            //  // 定义编号范围配置
+            // this.NUMBER_CONFIG = {
+            //     events: [
+            //         { 
+            //             name: '女子半程', 
+            //             prefix: 'A', 
+            //             startNumber: 1001, 
+            //             endNumber: 1650, 
+            //             totalCount: 650
+            //         },
+            //         {
+            //             name: '男子半程',
+            //             prefix: 'B',
+            //             startNumber: 2001,
+            //             endNumber: 2650,
+            //             totalCount: 650
+            //         },
+            //         {
+            //             name: '欢乐跑',
+            //             prefix: 'C',
+            //             startNumber: 1001,
+            //             endNumber: 1800,
+            //             totalCount: 800
+            //         }
+            //     ]
+            // };
+
+            // 添加配置相关的事件绑定
+            document.getElementById('configOverlay').addEventListener('click', (e) => {
+                if (e.target.id === 'configOverlay' || e.target.matches('.config-btn')) {
+                    this.handleConfigDialog(e);
+                }
+            });
+        }
+
+        // 初始化基础属性
+        initializeBasicProperties() {
+            this.usedNumbers = new Set(); // 确保最先初始化
+            this.lotteryHistory = [];
+            this.isDrawing = false;
+            this.audioEnabled = true;
+            this.currentEventIndex = 0; // 当前选中的活动索引
+            this.participantNumber = null;
+        }
+
+        // 初始化编号配置
+        initializeNumberConfig() {
             this.NUMBER_CONFIG = {
                 events: [
                     { 
@@ -1498,25 +1559,6 @@
                     }
                 ]
             };
-
-            // 添加配置相关的事件绑定
-            document.getElementById('configOverlay').addEventListener('click', (e) => {
-                if (e.target.id === 'configOverlay' || e.target.matches('.config-btn')) {
-                    this.handleConfigDialog(e);
-                }
-            });
-            // 从 localStorage 获取配置数据
-            this.loadConfigFromStorage();
-            // 页面加载时显示配置弹窗
-            this.showInitialConfig();
-
-            this.currentEventIndex = 0; // 当前选中的活动索引
-            this.participantNumber = null;
-            this.initializeSystem();
-            this.bindEvents();
-            this.createParticles();
-            this.initializeAudio();
-            this.updateNumberRangeDisplay();
         }
 
             // 页面加载时显示配置弹窗
@@ -2186,34 +2228,34 @@
             this.createNBScreenShake();
         }
 
-// New Balance主题撒花效果 - 修正颜色
-createNBConfetti() {
-    const nbColors = ['#1e3c72', '#2a5298', '#ffffff', '#4474aa'];
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    const particleCount = 300; // 更多的粒子
+        // // New Balance主题撒花效果 - 修正颜色
+        // createNBConfetti() {
+        //     const nbColors = ['#1e3c72', '#2a5298', '#ffffff', '#4474aa'];
+        //     const windowWidth = window.innerWidth;
+        //     const windowHeight = window.innerHeight;
+        //     const particleCount = 300; // 更多的粒子
 
-    for (let i = 0; i < particleCount; i++) {
-        setTimeout(() => {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * windowWidth + 'px';
-            confetti.style.top = Math.random() * windowHeight + 'px';
-            confetti.style.width = Math.random() * 10 + 5 + 'px'; // 更大的粒子
-            confetti.style.height = Math.random() * 10 + 5 + 'px';
-            confetti.style.backgroundColor = nbColors[Math.floor(Math.random() * nbColors.length)];
-            confetti.style.transform = `rotate(${Math.random() * 360}deg)`; // 随机旋转角度
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            
-            document.body.appendChild(confetti);
+        //     for (let i = 0; i < particleCount; i++) {
+        //         setTimeout(() => {
+        //             const confetti = document.createElement('div');
+        //             confetti.className = 'confetti';
+        //             confetti.style.left = Math.random() * windowWidth + 'px';
+        //             confetti.style.top = Math.random() * windowHeight + 'px';
+        //             confetti.style.width = Math.random() * 10 + 5 + 'px'; // 更大的粒子
+        //             confetti.style.height = Math.random() * 10 + 5 + 'px';
+        //             confetti.style.backgroundColor = nbColors[Math.floor(Math.random() * nbColors.length)];
+        //             confetti.style.transform = `rotate(${Math.random() * 360}deg)`; // 随机旋转角度
+        //             confetti.style.animationDelay = Math.random() * 2 + 's';
+        //             confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    
+        //             document.body.appendChild(confetti);
 
-            setTimeout(() => {
-                confetti.remove();
-            }, 5000);
-        }, i * 50); // 延迟更短,更快地生成粒子
-    }
-}
+        //             setTimeout(() => {
+        //                 confetti.remove();
+        //             }, 5000);
+        //         }, i * 50); // 延迟更短,更快地生成粒子
+        //     }
+        // }
 
         // New Balance主题撒花效果 - 修正颜色
         createNBConfetti() {
@@ -2280,6 +2322,24 @@ createNBConfetti() {
             this.updateHistory();
         }
 
+        // 获取当前事件的总计数
+        getCurrentEventTotalCount() {
+            const currentEvent = this.NUMBER_CONFIG.events[this.currentEventIndex];
+            return currentEvent.endNumber - currentEvent.startNumber + 1;
+        }
+
+        // 获取所有事件的总计数
+        getAllEventsTotalCount() {
+            return this.NUMBER_CONFIG.events.reduce((total, event) => {
+                return total + (event.endNumber - event.startNumber + 1);
+            }, 0);
+        }
+
+        // 获取剩余编号数量=
+        getRemainingNumbers() {
+            const totalNumbers = this.getAllEventsTotalCount();
+            return totalNumbers - this.usedNumbers.size;
+        }
 
         // 更新显示信息
         updateDisplay() {
@@ -2291,9 +2351,10 @@ createNBConfetti() {
 
             const currentEvent = this.NUMBER_CONFIG.events[this.currentEventIndex];
             const totalNumbers = this.NUMBER_CONFIG.events.reduce((sum, event) => sum + event.totalCount, 0);
-            //const remainingNumbers = currentEvent.totalCount - this.usedNumbers.size;
-            document.getElementById('remainingNumbers').textContent = totalNumbers;
-            //document.getElementById('drawnCount').textContent = this.usedNumbers.size;
+            debugger
+            const remainingNumbers = totalNumbers - this.usedNumbers.size;
+            document.getElementById('remainingNumbers').textContent = remainingNumbers;
+            document.getElementById('drawnCount').textContent = this.usedNumbers.size;
             document.getElementById('remainingPrizes').textContent = this.getTotalPrizes();
         }
 
@@ -2365,7 +2426,7 @@ createNBConfetti() {
         // 重置系统
         resetSystem() {
             if (confirm('确定要重置整个New Balance抽奖系统吗？这将清除所有数据！')) {
-                this.initializeSystem();
+                this.initializeBasicProperties();
                 this.updateHistory();
                 
                 // 重置转盘
