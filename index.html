@@ -1249,7 +1249,7 @@
                 <button class="btn btn-primary" id="startLottery">
                     🎲 开始抽奖
                 </button>
-                <button class="btn btn-secondary" id="resetSystem">
+                <button class="btn btn-secondary" id="resetSystem"  style="display: none;">
                     🔄 重置系统
                 </button>
                 <!-- 新增配置按钮 -->
@@ -2351,7 +2351,6 @@
 
             const currentEvent = this.NUMBER_CONFIG.events[this.currentEventIndex];
             const totalNumbers = this.NUMBER_CONFIG.events.reduce((sum, event) => sum + event.totalCount, 0);
-            debugger
             const remainingNumbers = totalNumbers - this.usedNumbers.size;
             document.getElementById('remainingNumbers').textContent = remainingNumbers;
             document.getElementById('drawnCount').textContent = this.usedNumbers.size;
