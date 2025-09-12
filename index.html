@@ -976,7 +976,227 @@
             height: 100%;
             object-fit: cover;
             border-radius: 10px;
-    }
+        }
+
+        /* 其他 CSS 保持不变 */
+        /* 添加配置按钮样式 */
+        .btn-config {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-config:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+        }
+
+        /* 配置弹窗样式 */
+        .config-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none; /* 默认隐藏 */
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .config-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .config-dialog {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            color: white;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .config-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .config-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .config-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .config-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .config-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .config-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .config-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .prize-icon {
+            font-size: 1.3rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .config-input {
+            width: 80px;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .config-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .config-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .config-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .config-btn-primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .config-btn-primary:hover {
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .config-btn-secondary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .config-btn-secondary:hover {
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .config-dialog {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .config-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .config-item {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .config-label {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1032,6 +1252,10 @@
                 </button>
                 <button class="btn btn-secondary" id="resetSystem">
                     🔄 重置系统
+                </button>
+                <!-- 新增配置按钮 -->
+                <button class="btn btn-config" id="openConfig">
+                    ⚙️ 配置奖品
                 </button>
             </div>
         </div>
@@ -1146,8 +1370,62 @@
                 </div>
             </div>
         </div>
-    </div>
 
+
+
+    </div>
+        <!-- 其他 HTML 结构保持不变 -->
+
+<!-- 配置弹窗 -->
+<div class="config-overlay" id="configOverlay">
+            <div class="config-dialog">
+                <div class="config-header">
+                    <h2 class="config-title">New Balance 奖品配置</h2>
+                    <p class="config-subtitle">调整各奖品的数量以匹配您的抽奖计划</p>
+                </div>
+                <div class="config-form">
+                    <div class="config-item">
+                        <div class="config-label">
+                            <span class="prize-icon">🌼</span>
+                            <span>NB 配饰</span>
+                        </div>
+                        <input type="number" class="config-input" id="configShoes" value="55" min="0" max="1000">
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">
+                            <span class="prize-icon">💪</span>
+                            <span>NB 护臂</span>
+                        </div>
+                        <input type="number" class="config-input" id="configHats" value="110" min="0" max="1000">
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">
+                            <span class="prize-icon">🧦</span>
+                            <span>NB 运动袜</span>
+                        </div>
+                        <input type="number" class="config-input" id="configBags" value="165" min="0" max="1000">
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">
+                            <span class="prize-icon">💵</span>
+                            <span>NB 现金券100元</span>
+                        </div>
+                        <input type="number" class="config-input" id="configClothes" value="220" min="0" max="1000">
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">
+                            <span class="prize-icon">💴</span>
+                            <span>NB 现金券50元</span>
+                        </div>
+                        <input type="number" class="config-input" id="configSocks" value="550" min="0" max="1000">
+                    </div>
+                </div>
+                <div class="config-buttons">
+                    <button class="config-btn config-btn-primary" id="saveConfig">保存配置</button>
+                    <button class="config-btn config-btn-secondary" id="resetConfig">恢复默认</button>
+                </div>
+            </div>
+</div>
     <!-- 音频文件 -->
     <audio id="bgMusic" loop>
         <source src="assets/background-music.mp3" type="audio/mpeg">
@@ -1220,6 +1498,18 @@
                     }
                 ]
             };
+
+            // 添加配置相关的事件绑定
+            document.getElementById('configOverlay').addEventListener('click', (e) => {
+                if (e.target.id === 'configOverlay' || e.target.matches('.config-btn')) {
+                    this.handleConfigDialog(e);
+                }
+            });
+            // 从 localStorage 获取配置数据
+            this.loadConfigFromStorage();
+            // 页面加载时显示配置弹窗
+            this.showInitialConfig();
+
             this.currentEventIndex = 0; // 当前选中的活动索引
             this.participantNumber = null;
             this.initializeSystem();
@@ -1227,6 +1517,154 @@
             this.createParticles();
             this.initializeAudio();
             this.updateNumberRangeDisplay();
+        }
+
+            // 页面加载时显示配置弹窗
+        showInitialConfig() {
+            const hasConfig = localStorage.getItem('nbLotteryConfig');
+            if (!hasConfig) {
+                // 如果没有保存的配置，显示配置弹窗
+                setTimeout(() => {
+                    this.openConfigDialog();
+                }, 1000);
+            }
+        }
+
+         // 处理配置弹窗的打开/关闭和保存/重置操作
+        handleConfigDialog(e) {
+            const action = e.target.id || e.target.dataset.action;
+            switch (action) {
+                case 'saveConfig':
+                    this.saveConfigToSystem();
+                    this.closeConfigDialog();
+                    break;
+                case 'resetConfig':
+                    this.resetConfigToDefault();
+                    break;
+                case 'configOverlay':
+                    this.closeConfigDialog();
+                    break;
+            }
+        }
+
+        // 从 localStorage 加载配置数据
+        loadConfigFromStorage() {
+            const storedConfig = localStorage.getItem('nbLotteryConfig');
+            if (storedConfig) {
+                const config = JSON.parse(storedConfig);
+                this.updateConfigInputs(config);
+                this.updatePrizeData(config);
+            } else {
+                this.resetConfigToDefault();
+            }
+        }
+        // 设置默认配置
+        setDefaultConfig() {
+            const defaultConfig = {
+                shoes: 55,
+                hats: 110,
+                bags: 165,
+                clothes: 220,
+                socks: 550
+            };
+            this.updateConfigInputs(defaultConfig);
+            this.updatePrizeData(defaultConfig);
+        }
+
+        // 保存配置数据到系统
+        saveConfigToSystem() {
+            try {
+                const config = this.getConfigFromInputs();
+                
+                // 验证输入
+                const totalPrizes = Object.values(config).reduce((sum, count) => sum + count, 0);
+                if (totalPrizes === 0) {
+                    this.showMessage('奖品总数不能为0！', 'error');
+                    return;
+                }
+                
+                localStorage.setItem('nbLotteryConfig', JSON.stringify(config));
+                this.updatePrizeData(config);
+                this.showMessage('✅ 配置保存成功！', 'success');
+                this.closeConfigDialog();
+            } catch (e) {
+                console.error('配置保存失败:', e);
+                this.showMessage('❌ 配置保存失败！', 'error');
+            }
+        }
+
+        // 从输入框获取当前的配置数据
+        getConfigFromInputs() {
+            return {
+                shoes: Math.max(0, parseInt(document.getElementById('configShoes').value) || 0),
+                hats: Math.max(0, parseInt(document.getElementById('configHats').value) || 0),
+                bags: Math.max(0, parseInt(document.getElementById('configBags').value) || 0),
+                clothes: Math.max(0, parseInt(document.getElementById('configClothes').value) || 0),
+                socks: Math.max(0, parseInt(document.getElementById('configSocks').value) || 0)
+            };
+        }
+        // 更新输入框的值
+        updateConfigInputs(config) {
+            document.getElementById('configShoes').value = config.shoes || 0;
+            document.getElementById('configHats').value = config.hats || 0;
+            document.getElementById('configBags').value = config.bags || 0;
+            document.getElementById('configClothes').value = config.clothes || 0;
+            document.getElementById('configSocks').value = config.socks || 0;
+        }
+
+        // 重置配置数据到默认值
+        resetConfigToDefault() {
+            if (confirm('确定要恢复到默认配置吗？')) {
+                const defaultConfig = {
+                    shoes: 55,
+                    hats: 110,
+                    bags: 165,
+                    clothes: 220,
+                    socks: 550
+                };
+                this.updateConfigInputs(defaultConfig);
+                this.showMessage('✅ 已恢复默认配置！', 'success');
+            }
+        }
+
+        // 更新奖品数据
+        updatePrizeData(config) {
+            this.prizes = {
+                shoes: { name: '🌼 NB 配饰', count: config.shoes, emoji: '🌼', angle: 0, centerAngle: 36, startAngle: 0, endAngle: 72 },
+                hats: { name: '💪 NB 护臂', count: config.hats, emoji: '💪', angle: 72, centerAngle: 108, startAngle: 72, endAngle: 144 },
+                bags: { name: '🧦 NB 运动袜', count: config.bags, emoji: '🧦', angle: 144, centerAngle: 180, startAngle: 144, endAngle: 216 },
+                clothes: { name: '💵 NB 现金券100元', count: config.clothes, emoji: '💵', angle: 216, centerAngle: 252, startAngle: 216, endAngle: 288 },
+                socks: { name: '💴 NB 现金券50元', count: config.socks, emoji: '💴', angle: 288, centerAngle: 324, startAngle: 288, endAngle: 360 }
+            };
+
+            this.updateDisplay();
+        }
+
+        // 打开配置弹窗
+        openConfigDialog() {
+            const overlay = document.getElementById('configOverlay');
+            overlay.style.display = 'flex';
+            overlay.classList.add('show');
+            
+            // 加载当前配置到输入框
+            if (this.prizes) {
+                this.updateConfigInputs({
+                    shoes: this.prizes.shoes.count,
+                    hats: this.prizes.hats.count,
+                    bags: this.prizes.bags.count,
+                    clothes: this.prizes.clothes.count,
+                    socks: this.prizes.socks.count
+                });
+            }
+        }
+
+        // 关闭配置弹窗
+        closeConfigDialog() {
+            const overlay = document.getElementById('configOverlay');
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
         }
         // 更新编号范围显示
         updateNumberRangeDisplay() {
@@ -1326,6 +1764,17 @@
             document.getElementById('closeWinner').addEventListener('click', () => this.closeWinnerAnimation());
             document.getElementById('exportHistory').addEventListener('click', () => this.exportHistory()); // 导出
 
+            // 配置相关事件
+            document.getElementById('openConfig').addEventListener('click', () => this.openConfigDialog());
+            document.getElementById('saveConfig').addEventListener('click', () => this.saveConfigToSystem());
+            document.getElementById('resetConfig').addEventListener('click', () => this.resetConfigToDefault());
+
+            // 点击overlay关闭弹窗
+            document.getElementById('configOverlay').addEventListener('click', (e) => {
+                if (e.target.id === 'configOverlay') {
+                    this.closeConfigDialog();
+                }
+            });
               // 输入框格式化处理
             const numberInput = document.getElementById('participantNumber');
             
@@ -1844,7 +2293,7 @@ createNBConfetti() {
             const totalNumbers = this.NUMBER_CONFIG.events.reduce((sum, event) => sum + event.totalCount, 0);
             //const remainingNumbers = currentEvent.totalCount - this.usedNumbers.size;
             document.getElementById('remainingNumbers').textContent = totalNumbers;
-            document.getElementById('drawnCount').textContent = this.usedNumbers.size;
+            //document.getElementById('drawnCount').textContent = this.usedNumbers.size;
             document.getElementById('remainingPrizes').textContent = this.getTotalPrizes();
         }
 
