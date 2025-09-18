@@ -3660,7 +3660,7 @@
 
         // 获取剩余奖品总数
         getTotalPrizes() {
-            return Object.values(this.prizes).reduce((total, prize) => total + prize.count, 0) - this.usedNumbers.size;
+            return Object.values(this.prizes).reduce((total, prize) => total + prize.count, 0);
         }
 
         // 显示消息
@@ -3761,4 +3761,5 @@
 </script>
 </body>
 </html>
+
 
